@@ -24,10 +24,13 @@ function App() {
     e.preventDefault()
     const form = e.target.form
     const categoryName = form['category-name'].value
-    const categoryBudget = form['category-budget'].value
-    setCategories([...categories, { name: categoryName, budget: Number(categoryBudget) }])
+    const categoryBudget = Number(form['category-budget'].value)
+    setCategories([...categories, { name: categoryName, budget: categoryBudget }])
     form['category-name'].value = ''
     form['category-budget'].value = null;
+    //reduce from monthly budget
+    const newBudget = monthlyBudget - categoryBudget;
+    setMonthlyBudget(newBudget);
   }
 
   const handleAddExpense = e => {
@@ -35,6 +38,7 @@ function App() {
     const form = e.target.form
     const categoryName = form['category-select'].value
     const categoryQuantity = Number(form['category-quantity'].value)
+    //reduce category budget
     const newCategories = categories.map(category => {
       if (category.name === categoryName) {
         return { ...category, budget: category.budget - categoryQuantity }
