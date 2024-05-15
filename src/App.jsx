@@ -25,7 +25,7 @@ function App() {
     const form = e.target.form
     const categoryName = form['category-name'].value
     const categoryBudget = Number(form['category-budget'].value)
-    setCategories([...categories, { name: categoryName, budget: categoryBudget }])
+    setCategories([...categories, { name: categoryName, budget: categoryBudget, used: 0 }])
     form['category-name'].value = ''
     form['category-budget'].value = null;
     //reduce from monthly budget
@@ -41,7 +41,11 @@ function App() {
     //reduce category budget
     const newCategories = categories.map(category => {
       if (category.name === categoryName) {
-        return { ...category, budget: category.budget - categoryQuantity }
+        return {
+          ...category,
+          budget: category.budget - categoryQuantity,
+          used: category.used + categoryQuantity
+        }
       }
       return category
     })
@@ -81,7 +85,11 @@ function App() {
       <button onClick={handleAddCategory}>Add Category</button>
       {
         categories.map((category) => (
-          <p key={category.name}>Category: {category.name} - {category.budget}</p>
+          <p key={category.name}>
+            Category: {category.name} - {' '}
+            <span style={{color: 'green'}}>{category.budget} </span> - {' '}
+            <span style={{color: 'red'}}>{category.used} </span>
+          </p>
         ))
       }
 
