@@ -26,16 +26,25 @@ function App() {
     const categoryName = form['category-name'].value
     const categoryBudget = form['category-budget'].value
     setCategories([...categories, { name: categoryName, budget: Number(categoryBudget) }])
+    form['category-name'].value = ''
+    form['category-budget'].value = null;
   }
 
   const handleAddExpense = e => {
     e.preventDefault()
     const form = e.target.form
     const categoryName = form['category-select'].value
-    const categoryQuantity = form['category-quantity'].value
-    console.log({categoryName})
-    console.log(Number(categoryQuantity))
+    const categoryQuantity = Number(form['category-quantity'].value)
+    const newCategories = categories.map(category => {
+      if (category.name === categoryName) {
+        return { ...category, budget: category.budget - categoryQuantity }
+      }
+      return category
+    })
+    setCategories(newCategories)
     setIsOpen(false)
+    form['category-select'].value = ''
+    form['category-quantity'].value = null;
   }
 
 
@@ -74,7 +83,7 @@ function App() {
 
       <button onClick={() => setIsOpen(true)}>Aggiungi Spesa</button>
       <dialog open={isOpen}>
-        <label for="category-select">Scegli la categoria</label>
+        <label htmlFor="category-select">Scegli la categoria</label>
         <select name="category" id="category-select">
           <option value="">--Please choose an option--</option>
           {
@@ -83,7 +92,7 @@ function App() {
             ))
           }
         </select>
-        <label for="quantity">Quantitá</label>
+        <label htmlFor="quantity">Quantitá</label>
         <input
           id='category-quantity'
           type="number"
