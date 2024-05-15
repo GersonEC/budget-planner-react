@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { useFormStatus } from "react-dom";
-import action from './actions.js';
+// import action from './actions.js';
 import './App.css'
 import ExpenseDialog from './components/ExpenseDialog.jsx';
+import BudgetForm from './components/BudgetForm.jsx';
+import CategoryForm from './components/CategoryForm.jsx';
+import CategoryList from './components/CategoryList';
 
 function Submit() {
   const status = useFormStatus();
@@ -58,42 +61,11 @@ function App() {
 
 
   return (
-    <form style={{ display: 'flex', flexDirection: 'column'}} action={action}>
-      <h1>Set up:</h1>
-      <h2>Budget - {monthlyBudget}</h2>
-      <label htmlFor='monthly-budget'>Monthly Budget</label>
-      <input
-        id='monthly-budget'
-        type="number"
-        min={0}
-        name="monthly-budget"
-      />
-      <button onClick={handleSetMonthlyBudget}>Set Budget</button>
-
-      <label htmlFor='category-name'>Category Name</label>
-      <input
-        id='category-name'
-        type="text"
-        name="category-name"
-      />
-      <label htmlFor='category-budget'>Category Budget</label>
-      <input
-        id='category-budget'
-        type="number"
-        min={0}
-        name="category-budget"
-      />
-      <button onClick={handleAddCategory}>Add Category</button>
-      {
-        categories.map((category) => (
-          <p key={category.name}>
-            Category: {category.name} - {' '}
-            <span style={{color: 'green'}}>{category.budget} </span> - {' '}
-            <span style={{color: 'red'}}>{category.used} </span>
-          </p>
-        ))
-      }
-
+    <div style={{ display: 'flex', flexDirection: 'column'}} /*action={action}*/>
+      <h1>Budget Planner</h1>
+      <BudgetForm monthlyBudget={monthlyBudget} handleSetMonthlyBudget={handleSetMonthlyBudget} />
+      <CategoryForm handleAddCategory={handleAddCategory} />
+      <CategoryList categories={categories} />
       <button onClick={() => setIsOpen(true)}>Aggiungi Spesa</button>
       <ExpenseDialog
         isOpen={isOpen}
@@ -102,7 +74,7 @@ function App() {
         handleOnClose={() => setIsOpen(false)}
       />
       {/* <Submit /> */}
-    </form>
+    </div>
   )
 }
 
