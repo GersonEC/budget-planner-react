@@ -16,6 +16,7 @@ function App() {
   const [monthlyBudget, setMonthlyBudget] = useState(0)
   const [categories, setCategories] = useState([])
   const [isOpen, setIsOpen] = useState(false)
+  const [proceed, setProceed] = useState(false)
 
   const handleSetMonthlyBudget = e => {
     e.preventDefault()
@@ -59,20 +60,34 @@ function App() {
     form['category-quantity'].value = null;
   }
 
+  const handleProceed = e => {
+    e.preventDefault()
+    setProceed(true)
+  }
+
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}} /*action={action}*/>
       <h1>Budget Planner</h1>
-      <BudgetForm monthlyBudget={monthlyBudget} handleSetMonthlyBudget={handleSetMonthlyBudget} />
-      <CategoryForm handleAddCategory={handleAddCategory} />
-      <CategoryList categories={categories} />
-      <button onClick={() => setIsOpen(true)}>Aggiungi Spesa</button>
-      <ExpenseDialog
-        isOpen={isOpen}
-        categories={categories}
-        handleAddExpense={handleAddExpense}
-        handleOnClose={() => setIsOpen(false)}
-      />
+      {!proceed ? (
+        <>
+          <BudgetForm monthlyBudget={monthlyBudget} handleSetMonthlyBudget={handleSetMonthlyBudget} />
+          <CategoryForm handleAddCategory={handleAddCategory} />
+          <button onClick={handleProceed}>Proceed</button>
+        </>
+      ) : (
+        <>
+          <CategoryList categories={categories} />
+          <button onClick={() => setIsOpen(true)}>Aggiungi Spesa</button>
+          <ExpenseDialog
+            isOpen={isOpen}
+            categories={categories}
+            handleAddExpense={handleAddExpense}
+            handleOnClose={() => setIsOpen(false)}
+          />
+        </>
+      )}
+      
       {/* <Submit /> */}
     </div>
   )
