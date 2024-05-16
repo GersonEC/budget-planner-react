@@ -22,6 +22,10 @@ function App() {
     e.preventDefault()
     const form = e.target.form
     const budget = form['monthly-budget'].value
+    if(budget <= 0) {
+      setErrors([...errors, 'Monthly budget must be greater than 0'])
+      return;
+    }
     setMonthlyBudget(Number(budget))
   }
 
@@ -35,6 +39,10 @@ function App() {
     //budget validation
     if(newBudget < 0) {
       setErrors([...errors, 'Monthly budget exceeded'])
+      return;
+    }
+    if( categoryName === '' || categoryBudget === 0) {
+      setErrors([...errors, 'Category name and budget are required'])
       return;
     }
     setCategories([...categories, { name: categoryName, budget: categoryBudget, used: 0 }])
