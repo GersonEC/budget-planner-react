@@ -1,16 +1,15 @@
 import { useState } from 'react'
-import { useFormStatus } from "react-dom";
+// import { useFormStatus } from "react-dom";
 // import action from './actions.js';
 import './App.css'
 import ExpenseDialog from './components/ExpenseDialog.jsx';
-import BudgetForm from './components/BudgetForm.jsx';
-import CategoryForm from './components/CategoryForm.jsx';
+import BudgetSetForm from './components/BudgetSetForm.jsx';
 import CategoryList from './components/CategoryList';
 
-function Submit() {
-  const status = useFormStatus();
-  return <button disabled={status.pending}>Submit</button>
-}
+// function Submit() {
+//   const status = useFormStatus();
+//   return <button disabled={status.pending}>Submit</button>
+// }
 
 function App() {
   const [monthlyBudget, setMonthlyBudget] = useState(0)
@@ -87,13 +86,17 @@ function App() {
       <h1>Budget Planner</h1>
       {!proceed ? (
         <>
-          <BudgetForm monthlyBudget={monthlyBudget} handleSetMonthlyBudget={handleSetMonthlyBudget} />
-          <CategoryForm handleAddCategory={handleAddCategory} />
-          <button onClick={handleProceed}>Proceed</button>
+          <BudgetSetForm
+            monthlyBudget={monthlyBudget}
+            handleSetMonthlyBudget={handleSetMonthlyBudget}
+            handleAddCategory={handleAddCategory}
+            handleProceed={handleProceed}
+          />
           {errors.map((error, index) => <p key={index} style={{ color: 'red'}}>{error}</p>)}
         </>
       ) : (
         <>
+          <h2>Budget - {monthlyBudget}</h2>
           <CategoryList categories={categories} />
           <button onClick={() => setIsOpen(true)}>Aggiungi Spesa</button>
           <ExpenseDialog
