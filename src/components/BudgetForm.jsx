@@ -1,5 +1,5 @@
 
-function BudgetForm({ monthlyBudget, handleSetMonthlyBudget}) {
+function BudgetForm({ monthlyBudget, handleSetMonthlyBudget }) {
   return (
     <form>
       <h2>Budget - {monthlyBudget}</h2>
@@ -9,6 +9,7 @@ function BudgetForm({ monthlyBudget, handleSetMonthlyBudget}) {
         type="number"
         min={0}
         name="monthly-budget"
+        required
       />
       <button onClick={handleSetMonthlyBudget}>Set Budget</button>
     </form>

@@ -17,6 +17,7 @@ function App() {
   const [categories, setCategories] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [proceed, setProceed] = useState(false)
+  const [errors, setErrors] = useState([])
 
   const handleSetMonthlyBudget = e => {
     e.preventDefault()
@@ -30,11 +31,16 @@ function App() {
     const form = e.target.form
     const categoryName = form['category-name'].value
     const categoryBudget = Number(form['category-budget'].value)
+    //reduce from monthly budget
+    const newBudget = monthlyBudget - categoryBudget;
+    //budget validation
+    if(newBudget < 0) {
+      setErrors([...errors, 'Monthly budget exceeded'])
+      return;
+    }
     setCategories([...categories, { name: categoryName, budget: categoryBudget, used: 0 }])
     form['category-name'].value = ''
     form['category-budget'].value = null;
-    //reduce from monthly budget
-    const newBudget = monthlyBudget - categoryBudget;
     setMonthlyBudget(newBudget);
   }
 
@@ -62,9 +68,19 @@ function App() {
 
   const handleProceed = e => {
     e.preventDefault()
-    setProceed(true)
+    //validation
+    let errors = []
+    if(monthlyBudget === 0) {
+      errors.push('Please set a monthly budget')
+    }
+    if(categories.length === 0) {
+      errors.push('Please add at least one category')
+    }
+    setErrors(errors)
+    if(errors.length === 0) {
+      setProceed(true)
+    }
   }
-
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}} /*action={action}*/>
@@ -74,6 +90,7 @@ function App() {
           <BudgetForm monthlyBudget={monthlyBudget} handleSetMonthlyBudget={handleSetMonthlyBudget} />
           <CategoryForm handleAddCategory={handleAddCategory} />
           <button onClick={handleProceed}>Proceed</button>
+          {errors.map((error, index) => <p key={index} style={{ color: 'red'}}>{error}</p>)}
         </>
       ) : (
         <>
