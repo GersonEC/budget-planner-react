@@ -5,6 +5,7 @@ import './App.css'
 import ExpenseDialog from './components/ExpenseDialog.jsx';
 import BudgetSetForm from './components/BudgetSetForm.jsx';
 import CategoryList from './components/CategoryList';
+import Expenses from './components/Expenses';
 
 // function Submit() {
 //   const status = useFormStatus();
@@ -103,17 +104,7 @@ function App() {
           {errors.map((error, index) => <p key={index} style={{ color: 'red'}}>{error}</p>)}
         </>
       ) : (
-        <>
-          <h2>Budget - {monthlyBudget}</h2>
-          <CategoryList categories={categories} />
-          <button onClick={() => setIsOpen(true)}>Aggiungi Spesa</button>
-          <ExpenseDialog
-            isOpen={isOpen}
-            categories={categories}
-            handleAddExpense={handleAddExpense}
-            handleOnClose={() => setIsOpen(false)}
-          />
-        </>
+        <Expenses monthlyBudget={monthlyBudget} categories={categories} handleAddExpense={handleAddExpense} isOpen={isOpen} setIsOpen={setIsOpen} />
       )}
       
       {/* <Submit /> */}

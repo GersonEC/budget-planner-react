@@ -1,10 +1,61 @@
-import React from 'react'
+import React, { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import {
+  Outlet,
+  RouterProvider,
+  Link,
+  createRouter,
+  createRoute,
+  createRootRoute,
+} from '@tanstack/react-router'
 import './index.css'
+import App from './App'
+// import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+const rootRoute = createRootRoute({
+  component: () => (
+    <>
+      <div className="p-2 flex gap-4">
+        <Link to="/" className="[&.active]:font-bold">
+          Budget Setup
+        </Link>{' '}
+        <Link to="/expenses" className="[&.active]:font-bold">
+          Expenses
+        </Link>
+      </div>
+      <hr />
+      <Outlet />
+      {/* <TanStackRouterDevtools /> */}
+    </>
+  ),
+})
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: function Index() {
+    return <App />
+  },
+})
+
+const aboutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/expenses',
+  component: function Expenses() {
+    return <Expenses />
+  },
+})
+
+const routeTree = rootRoute.addChildren([indexRoute, aboutRoute])
+
+const router = createRouter({ routeTree })
+
+const rootElement = document.getElementById('root')
+if (!rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement)
+  root.render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>,
+  )
+}
