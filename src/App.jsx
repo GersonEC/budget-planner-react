@@ -6,6 +6,7 @@ import ExpenseDialog from './components/ExpenseDialog.jsx';
 import BudgetSetForm from './components/BudgetSetForm.jsx';
 import CategoryList from './components/CategoryList';
 import Expenses from './components/Expenses';
+import Category from './components/Category';
 
 // function Submit() {
 //   const status = useFormStatus();
@@ -93,21 +94,7 @@ function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}} /*action={action}*/>
       <h1 style={{ color: 'orange'}}>Budget Planner</h1>
-      {!proceed ? (
-        <>
-          <BudgetSetForm
-            monthlyBudget={monthlyBudget}
-            handleSetMonthlyBudget={handleSetMonthlyBudget}
-            handleAddCategory={handleAddCategory}
-            handleProceed={handleProceed}
-          />
-          {errors.map((error, index) => <p key={index} style={{ color: 'red'}}>{error}</p>)}
-        </>
-      ) : (
-        <Expenses monthlyBudget={monthlyBudget} categories={categories} handleAddExpense={handleAddExpense} isOpen={isOpen} setIsOpen={setIsOpen} />
-      )}
-      
-      {/* <Submit /> */}
+      <Category />
     </div>
   )
 }
