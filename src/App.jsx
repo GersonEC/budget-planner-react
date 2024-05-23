@@ -92,7 +92,7 @@ function App() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}} /*action={action}*/>
-      <h1>Budget Planner</h1>
+      <h1 style={{ color: 'orange'}}>Budget Planner</h1>
       {!proceed ? (
         <>
           <BudgetSetForm

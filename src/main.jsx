@@ -15,7 +15,7 @@ import App from './App'
 const rootRoute = createRootRoute({
   component: () => (
     <>
-      <div className="p-2 flex gap-4">
+      {/* <div className="p-2 flex gap-4">
         <Link to="/" className="[&.active]:font-bold">
           Budget Setup
         </Link>{' '}
@@ -23,7 +23,7 @@ const rootRoute = createRootRoute({
           Expenses
         </Link>
       </div>
-      <hr />
+      <hr /> */}
       <Outlet />
       {/* <TanStackRouterDevtools /> */}
     </>
@@ -38,15 +38,15 @@ const indexRoute = createRoute({
   },
 })
 
-const aboutRoute = createRoute({
+const expensestRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/expenses',
   component: function Expenses() {
-    return <Expenses />
+    return <h1>Hello Expenses</h1>
   },
 })
 
-const routeTree = rootRoute.addChildren([indexRoute, aboutRoute])
+const routeTree = rootRoute.addChildren([indexRoute, expensestRoute])
 
 const router = createRouter({ routeTree })
 

@@ -1,5 +1,5 @@
 
-function BudgetSetForm({ handleSetMonthlyBudget, handleAddCategory, handleProceed }) {
+function BudgetSetForm({ monthlyBudget, handleSetMonthlyBudget, handleAddCategory, handleProceed }) {
   return (
     <form className="budget-set-form">
       <div className="budget-set-form-field">
@@ -13,6 +13,7 @@ function BudgetSetForm({ handleSetMonthlyBudget, handleAddCategory, handleProcee
         />
         <button onClick={handleSetMonthlyBudget}>Set Budget</button>
       </div>
+      {monthlyBudget}
       <div className="budget-set-form-field">
         <label htmlFor='category-name'>Category Name:</label>
         <input

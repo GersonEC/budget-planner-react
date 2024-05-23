@@ -4,11 +4,15 @@ function CategoryList({ categories }) {
     <div>
       {
         categories.map((category) => (
-          <p key={category.name}>
-            {category.name} - {' '}
-            <span style={{color: 'green'}}>{category.budget} </span> - {' '}
-            <span style={{color: 'red'}}>{category.used} </span>
-          </p>
+          <div key={category.name}>
+            <img src="/smartphone.svg" width='52px' alt="smartphone" />
+            <p>
+              <span><strong>{category.name}</strong></span>{' '}
+              <span style={{color: 'green'}}>{category.budget} </span> / {' '}
+              <span style={{color: 'red'}}>{category.used} </span>
+            </p>
+            
+          </div>
         ))
       }
     </div>
