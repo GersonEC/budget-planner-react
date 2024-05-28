@@ -1,4 +1,5 @@
 import { categories } from "../data";
+import ProgressBar from "./ProgressBar";
 
 const category = categories[0];
 function Category() {
@@ -6,18 +7,11 @@ function Category() {
     <div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
       <div style={{display: 'flex', flexDirection: 'column'}}>
         <label for="name">{category.name}</label>
-        <input
-          type="range"
-          id="name"
-          name="name"
-          min="0"
-          max={category.budget}
-          value={category.used}
-        />
+        <ProgressBar category={category} />
       </div>
       <div style={{display: 'flex', flexDirection: 'column'}}>
-        <span>{category.used}</span>
-        <span>{category.budget}</span>
+        <span style={{fontWeight: '600'}}>{category.used}</span>
+        <span style={{fontSize: '0.8rem'}}>{category.budget}</span>
       </div>
     </div>
   )

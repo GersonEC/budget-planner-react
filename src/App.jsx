@@ -7,6 +7,7 @@ import BudgetSetForm from './components/BudgetSetForm.jsx';
 import CategoryList from './components/CategoryList';
 import Expenses from './components/Expenses';
 import Category from './components/Category';
+import { categories as categoryList } from "./data";
 
 // function Submit() {
 //   const status = useFormStatus();
@@ -15,7 +16,7 @@ import Category from './components/Category';
 
 function App() {
   const [monthlyBudget, setMonthlyBudget] = useState(0)
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState(categoryList)
   const [isOpen, setIsOpen] = useState(false)
   const [proceed, setProceed] = useState(false)
   const [errors, setErrors] = useState([])
@@ -94,7 +95,11 @@ function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column'}} /*action={action}*/>
       <h1 style={{ color: 'orange'}}>Budget Planner</h1>
+      <h2>1120€</h2>
+      <span>1500€</span>
       <Category />
+      <button onClick={() => setIsOpen(true)}>Add Expense</button>
+      <ExpenseDialog isOpen={isOpen} categories={categories} handleAddExpense={handleAddExpense} handleOnClose={() => setIsOpen(false)} />
     </div>
   )
 }

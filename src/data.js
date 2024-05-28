@@ -20,9 +20,9 @@ export const categories = [
     used: 0
   },
   {
-    name: 'Food',
-    budget: 200,
-    used: 50
+    name: 'Junta',
+    budget: 300,
+    used: 210
   },
   {
     name: 'Food',
